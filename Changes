@@ -1,0 +1,50 @@
+Revision history for SHARYANTO-Module-Path
+
+0.14     2014-06-22 (SHARYANTO)
+
+         [INCOMPATIBLE CHANGES]
+
+         - Rename dist/module from Alt::Module::Path::SHARYANTO to
+           SHARYANTO::Module::Path because I want to depend on this module on
+           CPAN (and don't want to force others to have to replace the original
+           Module::Path by installing this dist).
+
+         - Change interface (using hash argument) so it becomes standard Rinci
+           stuff.
+
+         [REMOVED FEATURES]
+
+         - Remove command-line script 'mpath' to avoid clash with the one from
+           Module-Path. Will replace with App-PMUtils' pmpath.
+
+
+0.13.2   2014-06-22 (SHARYANTO)
+
+         - [Bugfix] Fix logic bug which made --find-prefix negates other
+           --find-*.
+
+         - Add short options: -a (for --all), -P (for --abs).
+
+
+0.13.1   2014-06-22 (SHARYANTO)
+
+         - Add option: find_prefix (--find-prefix, -p).
+
+
+0.13     2014-04-25 (SHARYANTO)
+
+         - No functional changes.
+
+         - Increase version number to match original's (0.13).
+
+
+0.02     2014-04-12 (SHARYANTO)
+
+         - Some tweaks to bin/mpath: Make --pod equal to --find-pod --nofind-pm
+           --nofind-pmc. Turn on full by default if there are more than one
+           argument. Use tab as separator character.
+
+
+0.01     2014-04-09 (SHARYANTO)
+
+         - First release.

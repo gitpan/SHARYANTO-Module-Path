@@ -1,0 +1,116 @@
+NAME
+    SHARYANTO::Module::Path - Get path to locally installed Perl module
+
+VERSION
+    This document describes version 0.14 of SHARYANTO::Module::Path (from
+    Perl distribution SHARYANTO-Module-Path), released on 2014-06-22.
+
+SYNOPSIS
+     use SHARYANTO::Module::Path 'module_path', 'pod_path';
+
+     $path = module_path(module=>'Test::More');
+     if (defined($path)) {
+       print "Test::More found at $path\n";
+     } else {
+       print "Danger Will Robinson!\n";
+     }
+
+     # find all found modules, as well as .pmc and .pod files
+     @path = module_path(module=>'Foo::Bar', all=>1, find_pmc=>1, find_pod=>1);
+
+     # just a shortcut for module_path(module=>'Foo',
+                                       find_pm=>0, find_pmc=>0, find_pod=>1);
+     $path = pod_path(module=>'Foo');
+
+DESCRIPTION
+FUNCTIONS
+  module_path(%args) -> array|str
+    Get path to locally installed Perl module.
+
+    Search @INC (reference entries are skipped) and return path(s) to Perl
+    module files with the requested name.
+
+    This function is like the one from "Module::Path", except with a
+    different interface and more options (finding all matches instead of the
+    first, the option of not absolutizing paths, finding ".pmc" & ".pod"
+    files, finding module prefixes).
+
+    Arguments ('*' denotes required arguments):
+
+    *   abs => *bool* (default: 0)
+
+        Whether to return absolute paths.
+
+    *   find_pm => *bool* (default: 1)
+
+        Whether to find .pmc files.
+
+    *   find_pod => *bool* (default: 0)
+
+        Whether to find .pod files.
+
+    *   find_prefix => *bool* (default: 1)
+
+        Whether to find module prefixes.
+
+    *   module* => *str*
+
+        Module name to search.
+
+    Return value:
+
+  pod_path(%args) -> array|str
+    Shortcut for `module_path(..., find_pod=>1, find_pm=>0, find_pmc=>0)`.
+
+    Search @INC (reference entries are skipped) and return path(s) to Perl
+    module files with the requested name.
+
+    This function is like the one from "Module::Path", except with a
+    different interface and more options (finding all matches instead of the
+    first, the option of not absolutizing paths, finding ".pmc" & ".pod"
+    files, finding module prefixes).
+
+    Arguments ('*' denotes required arguments):
+
+    *   abs => *bool* (default: 0)
+
+        Whether to return absolute paths.
+
+    *   find_prefix => *bool* (default: 1)
+
+        Whether to find module prefixes.
+
+    *   module* => *str*
+
+        Module name to search.
+
+    Return value:
+
+SEE ALSO
+    Module::Path
+
+HOMEPAGE
+    Please visit the project's homepage at
+    <https://metacpan.org/release/SHARYANTO-Module-Path>.
+
+SOURCE
+    Source repository is at
+    <https://github.com/sharyanto/perl-SHARYANTO-Module-Path>.
+
+BUGS
+    Please report any bugs or feature requests on the bugtracker website
+    <https://rt.cpan.org/Public/Dist/Display.html?Name=SHARYANTO-Module-Path
+    >
+
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
+
+AUTHOR
+    Steven Haryanto <stevenharyanto@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2014 by Steven Haryanto.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
