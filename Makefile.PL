@@ -20,6 +20,7 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "SHARYANTO::Module::Path",
   "PREREQ_PM" => {
+    "Complete::Module" => 0,
     "Function::Fallback::CoreOrPP" => 0
   },
   "TEST_REQUIRES" => {
@@ -28,7 +29,7 @@ my %WriteMakefileArgs = (
     "IPC::Open3" => 0,
     "Test::More" => "0.98"
   },
-  "VERSION" => "0.14",
+  "VERSION" => "0.15",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -36,6 +37,7 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
+  "Complete::Module" => 0,
   "File::Spec" => 0,
   "Function::Fallback::CoreOrPP" => 0,
   "IO::Handle" => 0,
