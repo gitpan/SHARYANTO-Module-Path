@@ -10,8 +10,8 @@ use Test::More 0.98;
 subtest module_path => sub {
     ok(module_path(module=>'strict'));
     ok(module_path(module=>'strict.pm'));
-    ok(module_path(module=>'Module::Path'));
-    ok(module_path(module=>'Module/Path.pm'));
+    ok(module_path(module=>'SHARYANTO::Module::Path'));
+    ok(module_path(module=>'SHARYANTO/Module/Path.pm'));
 
     # XXX opt: all
     # XXX opt: abs

@@ -2,7 +2,7 @@ NAME
     SHARYANTO::Module::Path - Get path to locally installed Perl module
 
 VERSION
-    This document describes version 0.16 of SHARYANTO::Module::Path (from
+    This document describes version 0.17 of SHARYANTO::Module::Path (from
     Perl distribution SHARYANTO-Module-Path), released on 2014-06-24.
 
 SYNOPSIS

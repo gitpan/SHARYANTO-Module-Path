@@ -1,5 +1,12 @@
 Revision history for SHARYANTO-Module-Path
 
+0.17     2014-06-24 (SHARYANTO)
+
+         - No functional changes.
+
+         - Fix test to avoid failure [CT].
+
+
 0.16     2014-06-24 (SHARYANTO)
 
          - A couple of bug fixes and tweaks.
