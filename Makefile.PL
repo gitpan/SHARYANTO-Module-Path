@@ -21,7 +21,8 @@ my %WriteMakefileArgs = (
   "NAME" => "SHARYANTO::Module::Path",
   "PREREQ_PM" => {
     "Complete::Module" => 0,
-    "Function::Fallback::CoreOrPP" => 0
+    "Function::Fallback::CoreOrPP" => 0,
+    "SHARYANTO::Complete::Util" => "0.04"
   },
   "TEST_REQUIRES" => {
     "File::Spec" => 0,
@@ -29,7 +30,7 @@ my %WriteMakefileArgs = (
     "IPC::Open3" => 0,
     "Test::More" => "0.98"
   },
-  "VERSION" => "0.15",
+  "VERSION" => "0.16",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -42,6 +43,7 @@ my %FallbackPrereqs = (
   "Function::Fallback::CoreOrPP" => 0,
   "IO::Handle" => 0,
   "IPC::Open3" => 0,
+  "SHARYANTO::Complete::Util" => "0.04",
   "Test::More" => "0.98"
 );
 

@@ -10,7 +10,7 @@ require Exporter;
 our @ISA       = qw(Exporter);
 our @EXPORT_OK = qw(module_path pod_path);
 
-our $VERSION = '0.15'; # VERSION
+our $VERSION = '0.16'; # VERSION
 our $DATE = '2014-06-24'; # DATE
 
 my $SEPARATOR;
@@ -49,10 +49,17 @@ _
             pos     => 0,
             completion => sub {
                 require Complete::Module;
+                require SHARYANTO::Complete::Util;
                 my %args = @_;
-                Complete::Module::complete_module(
-                    word => $args{word},
-                    separator => '/',
+                #use DD; dd \%args;
+                SHARYANTO::Complete::Util::mimic_shell_dir_completion(
+                    completion => Complete::Module::complete_module(
+                        word => $args{word},
+                        separator => '/',
+                        find_pm  => $args{args}{find_pm},
+                        find_pmc => $args{args}{find_pmc},
+                        find_pod => $args{args}{find_pod},
+                    ),
                 );
             },
         },
@@ -76,6 +83,12 @@ _
             schema  => 'bool',
             default => 1,
             cmdline_aliases => { p=>{} },
+        },
+        all => {
+            summary => 'Return all results instead of just the first',
+            schema  => 'bool',
+            default => 0,
+            cmdline_aliases => { a=>{} },
         },
         abs => {
             summary => 'Whether to return absolute paths',
@@ -116,12 +129,6 @@ sub module_path {
         next if ref($dir);
 
         my $prefix = $dir . $SEPARATOR . $relpath;
-        if ($args{find_prefix}) {
-            if (-d $prefix) {
-                $add->($prefix);
-                last unless $args{all};
-            }
-        }
         if ($args{find_pmc}) {
             my $file = $prefix . ".pmc";
             if (-f $file) {
@@ -143,6 +150,12 @@ sub module_path {
                 last unless $args{all};
             }
         }
+        if ($args{find_prefix}) {
+            if (-d $prefix) {
+                $add->($prefix);
+                last unless $args{all};
+            }
+        }
     }
 
     if ($args{all}) {
@@ -155,15 +168,30 @@ sub module_path {
 {
     my $spec = clone($SPEC{module_path});
     $spec->{summary} = 'Find path to Perl POD files',
-    $spec->{summary} = 'Shortcut for `module_path(..., find_pod=>1, find_pm=>0, find_pmc=>0)`.';
+    $spec->{summary} = 'Shortcut for `module_path(..., find_pm=>0, find_pmc=>0, find_pod=>1, find_prefix=>1, )`.';
     delete $spec->{args}{find_pm};
     delete $spec->{args}{find_pmc};
     delete $spec->{args}{find_pod};
+    delete $spec->{args}{find_prefix};
+    $spec->{args}{module}{completion} = sub {
+        require Complete::Module;
+        my %args = @_;
+        #use DD; dd \%args;
+        SHARYANTO::Complete::Util::mimic_shell_dir_completion(
+            completion=>Complete::Module::complete_module(
+                word => $args{word},
+                separator => '/',
+                find_pm  => 0,
+                find_pmc => 0,
+                find_pod => 1,
+            ),
+        );
+    };
     $SPEC{pod_path} = $spec;
 }
 sub pod_path {
     my %args = @_;
-    module_path(%args, find_pm=>0, find_pmc=>0, find_pod=>1);
+    module_path(%args, find_pm=>0, find_pmc=>0, find_pod=>1, find_prefix=>0);
 }
 
 1;
@@ -181,7 +209,7 @@ SHARYANTO::Module::Path - Get path to locally installed Perl module
 
 =head1 VERSION
 
-This document describes version 0.15 of SHARYANTO::Module::Path (from Perl distribution SHARYANTO-Module-Path), released on 2014-06-24.
+This document describes version 0.16 of SHARYANTO::Module::Path (from Perl distribution SHARYANTO-Module-Path), released on 2014-06-24.
 
 =head1 SYNOPSIS
 
@@ -226,6 +254,10 @@ Arguments ('*' denotes required arguments):
 
 Whether to return absolute paths.
 
+=item * B<all> => I<bool> (default: 0)
+
+Return all results instead of just the first.
+
 =item * B<find_pm> => I<bool> (default: 1)
 
 Whether to find .pmc files.
@@ -249,7 +281,7 @@ Return value:
 
 =head2 pod_path(%args) -> array|str
 
-Shortcut for `module_path(..., find_pod=>1, find_pm=>0, find_pmc=>0)`.
+Shortcut for `module_path(..., find_pm=>0, find_pmc=>0, find_pod=>1, find_prefix=>1, )`.
 
 Search C<@INC> (reference entries are skipped) and return path(s) to Perl module
 files with the requested name.
@@ -267,9 +299,9 @@ Arguments ('*' denotes required arguments):
 
 Whether to return absolute paths.
 
-=item * B<find_prefix> => I<bool> (default: 1)
+=item * B<all> => I<bool> (default: 0)
 
-Whether to find module prefixes.
+Return all results instead of just the first.
 
 =item * B<module>* => I<str>
 

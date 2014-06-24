@@ -1,5 +1,10 @@
 Revision history for SHARYANTO-Module-Path
 
+0.16     2014-06-24 (SHARYANTO)
+
+         - A couple of bug fixes and tweaks.
+
+
 0.15     2014-06-23 (SHARYANTO)
 
          - Add completion routine 'module' argument.

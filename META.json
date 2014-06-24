@@ -31,6 +31,7 @@
          "requires" : {
             "Complete::Module" : "0",
             "Function::Fallback::CoreOrPP" : "0",
+            "SHARYANTO::Complete::Util" : "0.04",
             "perl" : "5.010001"
          }
       },
@@ -55,7 +56,7 @@
          "web" : "https://github.com/sharyanto/perl-SHARYANTO-Module-Path"
       }
    },
-   "version" : "0.15",
+   "version" : "0.16",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.018002"
