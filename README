@@ -2,8 +2,8 @@ NAME
     SHARYANTO::Module::Path - Get path to locally installed Perl module
 
 VERSION
-    This document describes version 0.17 of SHARYANTO::Module::Path (from
-    Perl distribution SHARYANTO-Module-Path), released on 2014-06-24.
+    This document describes version 0.18 of SHARYANTO::Module::Path (from
+    Perl distribution SHARYANTO-Module-Path), released on 2014-06-25.
 
 SYNOPSIS
      use SHARYANTO::Module::Path 'module_path', 'pod_path';
@@ -46,6 +46,10 @@ FUNCTIONS
         Return all results instead of just the first.
 
     *   find_pm => *bool* (default: 1)
+
+        Whether to find .pm files.
+
+    *   find_pmc => *bool* (default: 1)
 
         Whether to find .pmc files.
 
@@ -100,7 +104,7 @@ HOMEPAGE
 
 SOURCE
     Source repository is at
-    <https://github.com/sharyanto/perl-SHARYANTO-Module-Path>.
+    <https://github.com/sharyanto/perl-Alt-Module-Path-SHARYANTO>.
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website

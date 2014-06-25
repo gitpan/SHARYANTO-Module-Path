@@ -1,5 +1,12 @@
 Revision history for SHARYANTO-Module-Path
 
+0.18     2014-06-25 (SHARYANTO)
+
+         - Fix typo.
+
+         - Use Complete::Util (renamed from SHARYANTO::Complete::Util).
+
+
 0.17     2014-06-24 (SHARYANTO)
 
          - No functional changes.

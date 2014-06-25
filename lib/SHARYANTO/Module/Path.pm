@@ -10,8 +10,8 @@ require Exporter;
 our @ISA       = qw(Exporter);
 our @EXPORT_OK = qw(module_path pod_path);
 
-our $VERSION = '0.17'; # VERSION
-our $DATE = '2014-06-24'; # DATE
+our $VERSION = '0.18'; # VERSION
+our $DATE = '2014-06-25'; # DATE
 
 my $SEPARATOR;
 
@@ -49,10 +49,10 @@ _
             pos     => 0,
             completion => sub {
                 require Complete::Module;
-                require SHARYANTO::Complete::Util;
+                require Complete::Util;
                 my %args = @_;
                 #use DD; dd \%args;
-                SHARYANTO::Complete::Util::mimic_shell_dir_completion(
+                Complete::Util::mimic_shell_dir_completion(
                     completion => Complete::Module::complete_module(
                         word => $args{word},
                         separator => '/',
@@ -68,7 +68,7 @@ _
             schema  => 'bool',
             default => 1,
         },
-        find_pm => {
+        find_pmc => {
             summary => 'Whether to find .pmc files',
             schema  => 'bool',
             default => 1,
@@ -175,9 +175,10 @@ sub module_path {
     delete $spec->{args}{find_prefix};
     $spec->{args}{module}{completion} = sub {
         require Complete::Module;
+        require Complete::Util;
         my %args = @_;
         #use DD; dd \%args;
-        SHARYANTO::Complete::Util::mimic_shell_dir_completion(
+        Complete::Util::mimic_shell_dir_completion(
             completion=>Complete::Module::complete_module(
                 word => $args{word},
                 separator => '/',
@@ -209,7 +210,7 @@ SHARYANTO::Module::Path - Get path to locally installed Perl module
 
 =head1 VERSION
 
-This document describes version 0.17 of SHARYANTO::Module::Path (from Perl distribution SHARYANTO-Module-Path), released on 2014-06-24.
+This document describes version 0.18 of SHARYANTO::Module::Path (from Perl distribution SHARYANTO-Module-Path), released on 2014-06-25.
 
 =head1 SYNOPSIS
 
@@ -259,6 +260,10 @@ Whether to return absolute paths.
 Return all results instead of just the first.
 
 =item * B<find_pm> => I<bool> (default: 1)
+
+Whether to find .pm files.
+
+=item * B<find_pmc> => I<bool> (default: 1)
 
 Whether to find .pmc files.
 
@@ -321,7 +326,7 @@ Please visit the project's homepage at L<https://metacpan.org/release/SHARYANTO-
 
 =head1 SOURCE
 
-Source repository is at L<https://github.com/sharyanto/perl-SHARYANTO-Module-Path>.
+Source repository is at L<https://github.com/sharyanto/perl-Alt-Module-Path-SHARYANTO>.
 
 =head1 BUGS
 
