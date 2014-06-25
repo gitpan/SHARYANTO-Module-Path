@@ -10,7 +10,7 @@ require Exporter;
 our @ISA       = qw(Exporter);
 our @EXPORT_OK = qw(module_path pod_path);
 
-our $VERSION = '0.18'; # VERSION
+our $VERSION = '0.19'; # VERSION
 our $DATE = '2014-06-25'; # DATE
 
 my $SEPARATOR;
@@ -59,6 +59,7 @@ _
                         find_pm  => $args{args}{find_pm},
                         find_pmc => $args{args}{find_pmc},
                         find_pod => $args{args}{find_pod},
+                        ci => 1,
                     ),
                 );
             },
@@ -210,7 +211,7 @@ SHARYANTO::Module::Path - Get path to locally installed Perl module
 
 =head1 VERSION
 
-This document describes version 0.18 of SHARYANTO::Module::Path (from Perl distribution SHARYANTO-Module-Path), released on 2014-06-25.
+This document describes version 0.19 of SHARYANTO::Module::Path (from Perl distribution SHARYANTO-Module-Path), released on 2014-06-25.
 
 =head1 SYNOPSIS
 

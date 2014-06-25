@@ -1,5 +1,10 @@
 Revision history for SHARYANTO-Module-Path
 
+0.19     2014-06-25 (SHARYANTO)
+
+         - Use case-insensitive module completion, for convenience.
+
+
 0.18     2014-06-25 (SHARYANTO)
 
          - Fix typo.
