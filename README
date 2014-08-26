@@ -2,8 +2,8 @@ NAME
     SHARYANTO::Module::Path - Get path to locally installed Perl module
 
 VERSION
-    This document describes version 0.19 of SHARYANTO::Module::Path (from
-    Perl distribution SHARYANTO-Module-Path), released on 2014-06-25.
+    This document describes version 0.20 of SHARYANTO::Module::Path (from
+    Perl distribution SHARYANTO-Module-Path), released on 2014-08-26.
 
 SYNOPSIS
      use SHARYANTO::Module::Path 'module_path', 'pod_path';
@@ -23,6 +23,27 @@ SYNOPSIS
      $path = pod_path(module=>'Foo');
 
 DESCRIPTION
+    This module is a fork of Module::Path. It contains features that are not
+    (or have not been accepted) in the original module, namely: finding all
+    matches instead of the first found match, and finding .pmc/.pod in
+    addition to .pm files. There is also a difference of behavior: no
+    abs_path() or symlink resolving is being done by default because I think
+    that's the sensible default (doing abs_path() or resolving symlinks will
+    sometimes fail or expose filesystem quirks that we might not want to
+    deal with at all). However, an "abs" bool option is provided if a user
+    wants to do that.
+
+    This module has also diverged by introducing a different interface since
+    v0.14.
+
+    References:
+
+    *   <https://github.com/neilbowers/Module-Path/issues/6>
+
+    *   <https://github.com/neilbowers/Module-Path/issues/7>
+
+    *   <https://github.com/neilbowers/Module-Path/issues/10>
+
 FUNCTIONS
   module_path(%args) -> array|str
     Get path to locally installed Perl module.
@@ -67,6 +88,8 @@ FUNCTIONS
 
     Return value:
 
+     (any)
+
   pod_path(%args) -> array|str
     Shortcut for `module_path(..., find_pm=>0, find_pmc=>0, find_pod=>1,
     find_prefix=>1, )`.
@@ -95,7 +118,11 @@ FUNCTIONS
 
     Return value:
 
+     (any)
+
 SEE ALSO
+    SHARYANTO
+
     Module::Path
 
 HOMEPAGE

@@ -1,5 +1,12 @@
 Revision history for SHARYANTO-Module-Path
 
+0.20     2014-08-26 (SHARYANTO)
+
+         - [Removed] Remove completion-related routines (moved to App-PMUtils).
+
+         - Add note in Description about why this module exists.
+
+
 0.19     2014-06-25 (SHARYANTO)
 
          - Use case-insensitive module completion, for convenience.

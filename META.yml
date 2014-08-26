@@ -17,15 +17,14 @@ meta-spec:
   version: '1.4'
 name: SHARYANTO-Module-Path
 requires:
-  Complete::Module: '0.03'
-  Complete::Util: '0'
-  Function::Fallback::CoreOrPP: '0'
+  Perinci::Sub::Util: '0.38'
+  Rinci: v1.1.0
   perl: '5.010001'
 resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=SHARYANTO-Module-Path
   homepage: https://metacpan.org/release/SHARYANTO-Module-Path
   repository: git://github.com/sharyanto/perl-Alt-Module-Path-SHARYANTO.git
-version: '0.19'
+version: '0.20'
 x_Dist_Zilla:
   perl:
     version: '5.018002'
@@ -218,7 +217,11 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Rinci::Validate
       name: '@Author::SHARYANTO/Rinci::Validate'
-      version: '0.13'
+      version: '0.14'
+    -
+      class: Dist::Zilla::Plugin::SetScriptShebang
+      name: '@Author::SHARYANTO/SetScriptShebang'
+      version: '0.01'
     -
       class: Dist::Zilla::Plugin::SHARYANTO::OurPkgVersion
       name: '@Author::SHARYANTO/SHARYANTO::OurPkgVersion'

@@ -4,14 +4,14 @@ use 5.010001;
 use strict;
 use warnings;
 
-use Function::Fallback::CoreOrPP qw(clone);
+use Perinci::Sub::Util qw(gen_modified_sub);
 
 require Exporter;
 our @ISA       = qw(Exporter);
 our @EXPORT_OK = qw(module_path pod_path);
 
-our $VERSION = '0.19'; # VERSION
-our $DATE = '2014-06-25'; # DATE
+our $VERSION = '0.20'; # VERSION
+our $DATE = '2014-08-26'; # DATE
 
 my $SEPARATOR;
 
@@ -47,22 +47,6 @@ _
             schema  => 'str*',
             req     => 1,
             pos     => 0,
-            completion => sub {
-                require Complete::Module;
-                require Complete::Util;
-                my %args = @_;
-                #use DD; dd \%args;
-                Complete::Util::mimic_shell_dir_completion(
-                    completion => Complete::Module::complete_module(
-                        word => $args{word},
-                        separator => '/',
-                        find_pm  => $args{args}{find_pm},
-                        find_pmc => $args{args}{find_pmc},
-                        find_pod => $args{args}{find_pod},
-                        ci => 1,
-                    ),
-                );
-            },
         },
         find_pm => {
             summary => 'Whether to find .pm files',
@@ -83,19 +67,16 @@ _
             summary => 'Whether to find module prefixes',
             schema  => 'bool',
             default => 1,
-            cmdline_aliases => { p=>{} },
         },
         all => {
             summary => 'Return all results instead of just the first',
             schema  => 'bool',
             default => 0,
-            cmdline_aliases => { a=>{} },
         },
         abs => {
             summary => 'Whether to return absolute paths',
             schema  => 'bool',
             default => 0,
-            cmdline_aliases => { P=>{} },
         },
     },
     result => {
@@ -166,35 +147,23 @@ sub module_path {
     }
 }
 
-{
-    my $spec = clone($SPEC{module_path});
-    $spec->{summary} = 'Find path to Perl POD files',
-    $spec->{summary} = 'Shortcut for `module_path(..., find_pm=>0, find_pmc=>0, find_pod=>1, find_prefix=>1, )`.';
-    delete $spec->{args}{find_pm};
-    delete $spec->{args}{find_pmc};
-    delete $spec->{args}{find_pod};
-    delete $spec->{args}{find_prefix};
-    $spec->{args}{module}{completion} = sub {
-        require Complete::Module;
-        require Complete::Util;
+gen_modified_sub(
+    output_name => 'pod_path',
+    base_name   => 'module_path',
+    summary     => 'Find path to Perl POD files',
+    description => <<'_',
+
+Shortcut for `module_path(..., find_pm=>0, find_pmc=>0, find_pod=>1,
+find_prefix=>1, )`.
+
+_
+    remove_args => [qw/find_pm find_pmc find_pod find_prefix/],
+    output_code => sub {
         my %args = @_;
-        #use DD; dd \%args;
-        Complete::Util::mimic_shell_dir_completion(
-            completion=>Complete::Module::complete_module(
-                word => $args{word},
-                separator => '/',
-                find_pm  => 0,
-                find_pmc => 0,
-                find_pod => 1,
-            ),
-        );
-    };
-    $SPEC{pod_path} = $spec;
-}
-sub pod_path {
-    my %args = @_;
-    module_path(%args, find_pm=>0, find_pmc=>0, find_pod=>1, find_prefix=>0);
-}
+        module_path(
+            %args, find_pm=>0, find_pmc=>0, find_pod=>1, find_prefix=>0);
+    },
+);
 
 1;
 # ABSTRACT: Get path to locally installed Perl module
@@ -211,7 +180,7 @@ SHARYANTO::Module::Path - Get path to locally installed Perl module
 
 =head1 VERSION
 
-This document describes version 0.19 of SHARYANTO::Module::Path (from Perl distribution SHARYANTO-Module-Path), released on 2014-06-25.
+This document describes version 0.20 of SHARYANTO::Module::Path (from Perl distribution SHARYANTO-Module-Path), released on 2014-08-26.
 
 =head1 SYNOPSIS
 
@@ -232,6 +201,29 @@ This document describes version 0.19 of SHARYANTO::Module::Path (from Perl distr
  $path = pod_path(module=>'Foo');
 
 =head1 DESCRIPTION
+
+This module is a fork of L<Module::Path>. It contains features that are not (or
+have not been accepted) in the original module, namely: finding all matches
+instead of the first found match, and finding .pmc/.pod in addition to .pm
+files. There is also a difference of behavior: no abs_path() or symlink
+resolving is being done by default because I think that's the sensible default
+(doing abs_path() or resolving symlinks will sometimes fail or expose filesystem
+quirks that we might not want to deal with at all). However, an C<abs> bool
+option is provided if a user wants to do that.
+
+This module has also diverged by introducing a different interface since v0.14.
+
+References:
+
+=over
+
+=item * L<https://github.com/neilbowers/Module-Path/issues/6>
+
+=item * L<https://github.com/neilbowers/Module-Path/issues/7>
+
+=item * L<https://github.com/neilbowers/Module-Path/issues/10>
+
+=back
 
 =head1 FUNCTIONS
 
@@ -284,6 +276,8 @@ Module name to search.
 
 Return value:
 
+ (any)
+
 
 =head2 pod_path(%args) -> array|str
 
@@ -317,7 +311,11 @@ Module name to search.
 
 Return value:
 
+ (any)
+
 =head1 SEE ALSO
+
+L<SHARYANTO>
 
 L<Module::Path>
 
