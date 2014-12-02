@@ -10,8 +10,8 @@ require Exporter;
 our @ISA       = qw(Exporter);
 our @EXPORT_OK = qw(module_path pod_path);
 
-our $VERSION = '0.20'; # VERSION
-our $DATE = '2014-08-26'; # DATE
+our $VERSION = '0.21'; # VERSION
+our $DATE = '2014-12-02'; # DATE
 
 my $SEPARATOR;
 
@@ -66,7 +66,7 @@ _
         find_prefix => {
             summary => 'Whether to find module prefixes',
             schema  => 'bool',
-            default => 1,
+            default => 0,
         },
         all => {
             summary => 'Return all results instead of just the first',
@@ -180,7 +180,7 @@ SHARYANTO::Module::Path - Get path to locally installed Perl module
 
 =head1 VERSION
 
-This document describes version 0.20 of SHARYANTO::Module::Path (from Perl distribution SHARYANTO-Module-Path), released on 2014-08-26.
+This document describes version 0.21 of SHARYANTO::Module::Path (from Perl distribution SHARYANTO-Module-Path), released on 2014-12-02.
 
 =head1 SYNOPSIS
 
@@ -281,15 +281,10 @@ Return value:
 
 =head2 pod_path(%args) -> array|str
 
-Shortcut for `module_path(..., find_pm=>0, find_pmc=>0, find_pod=>1, find_prefix=>1, )`.
+Find path to Perl POD files.
 
-Search C<@INC> (reference entries are skipped) and return path(s) to Perl module
-files with the requested name.
-
-This function is like the one from C<Module::Path>, except with a different
-interface and more options (finding all matches instead of the first, the option
-of not absolutizing paths, finding C<.pmc> & C<.pod> files, finding module
-prefixes).
+Shortcut for C<< module_path(..., find_pm=E<gt>0, find_pmc=E<gt>0, find_pod=E<gt>1,
+find_prefix=E<gt>1, ) >>.
 
 Arguments ('*' denotes required arguments):
 
@@ -325,7 +320,7 @@ Please visit the project's homepage at L<https://metacpan.org/release/SHARYANTO-
 
 =head1 SOURCE
 
-Source repository is at L<https://github.com/sharyanto/perl-Alt-Module-Path-SHARYANTO>.
+Source repository is at L<https://github.com/perlancar/perl-Alt-Module-Path-SHARYANTO>.
 
 =head1 BUGS
 
@@ -337,11 +332,11 @@ feature.
 
 =head1 AUTHOR
 
-Steven Haryanto <stevenharyanto@gmail.com>
+perlancar <perlancar@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Steven Haryanto.
+This software is copyright (c) 2014 by perlancar@cpan.org.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

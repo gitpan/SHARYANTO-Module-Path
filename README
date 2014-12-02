@@ -2,8 +2,8 @@ NAME
     SHARYANTO::Module::Path - Get path to locally installed Perl module
 
 VERSION
-    This document describes version 0.20 of SHARYANTO::Module::Path (from
-    Perl distribution SHARYANTO-Module-Path), released on 2014-08-26.
+    This document describes version 0.21 of SHARYANTO::Module::Path (from
+    Perl distribution SHARYANTO-Module-Path), released on 2014-12-02.
 
 SYNOPSIS
      use SHARYANTO::Module::Path 'module_path', 'pod_path';
@@ -91,16 +91,10 @@ FUNCTIONS
      (any)
 
   pod_path(%args) -> array|str
-    Shortcut for `module_path(..., find_pm=>0, find_pmc=>0, find_pod=>1,
-    find_prefix=>1, )`.
+    Find path to Perl POD files.
 
-    Search @INC (reference entries are skipped) and return path(s) to Perl
-    module files with the requested name.
-
-    This function is like the one from "Module::Path", except with a
-    different interface and more options (finding all matches instead of the
-    first, the option of not absolutizing paths, finding ".pmc" & ".pod"
-    files, finding module prefixes).
+    Shortcut for "module_path(..., find_pm=>0, find_pmc=>0, find_pod=>1,
+    find_prefix=>1, )".
 
     Arguments ('*' denotes required arguments):
 
@@ -131,7 +125,7 @@ HOMEPAGE
 
 SOURCE
     Source repository is at
-    <https://github.com/sharyanto/perl-Alt-Module-Path-SHARYANTO>.
+    <https://github.com/perlancar/perl-Alt-Module-Path-SHARYANTO>.
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website
@@ -142,10 +136,10 @@ BUGS
     to an existing test-file that illustrates the bug or desired feature.
 
 AUTHOR
-    Steven Haryanto <stevenharyanto@gmail.com>
+    perlancar <perlancar@cpan.org>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2014 by Steven Haryanto.
+    This software is copyright (c) 2014 by perlancar@cpan.org.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.

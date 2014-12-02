@@ -1,5 +1,12 @@
 Revision history for SHARYANTO-Module-Path
 
+0.21    2014-12-02 (PERLANCAR)
+
+	- No functional changes.
+
+	- Fix/sync Rinci metadata (find_prefix is by default 0).
+
+
 0.20     2014-08-26 (SHARYANTO)
 
          - [Removed] Remove completion-related routines (moved to App-PMUtils).
